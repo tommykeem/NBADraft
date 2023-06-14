@@ -1,8 +1,10 @@
 ## needed libraries
-from urllib.request import urlopen
+from urllib.request import urlopen, urlcleanup
 from bs4 import BeautifulSoup
 import pandas as pd
 from unidecode import unidecode
+import requests
+import time
 
 ### error checking package
 import sys
@@ -33,14 +35,15 @@ def scrape_college_data(names=[]):
         try:
             name[0] += '-1'
             player_name = name[0]
-            url = f"https://www.sports-reference.com/cbb/players/{player_name}.html"
+            urlcleanup()
+            url = f"http://www.sports-reference.com/cbb/players/{player_name}.html"
             html = urlopen(url)
             soup= BeautifulSoup(html, features = 'lxml')
             soup_table = soup.find(name = 'table', attrs = {'id' : 'players_per_game'})
 
 
             # get rows from table
-            for row in soup_table.find_all('tr')[-1:]:# Excluding the first 'tr', since that's the table's title head
+            for row in soup_table.find_all('tr')[-1:]: # Excluding the first 'tr', since that's the table's title head
                 player = {}
                 player['Player']= (draftdf['Player'].loc[draftdf['FNAME'] == name[1]]).item()
                 player['College_Season'] = row.find('th', {'data-stat' : 'season'}).text
@@ -70,6 +73,7 @@ def scrape_college_data(names=[]):
                 player['Points_pergame'] = row.find('td', {'data-stat' : 'pts_per_g'}).text
                 player['Team_strength_of_schedule'] = row.find('td', {'data-stat' : 'sos'}).text
                 stats.append(player)
+            time.sleep(10)
 
 
 #Adding an exception to view any errors when collecting data for each player
