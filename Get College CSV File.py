@@ -6,7 +6,6 @@ from unidecode import unidecode
 
 ### error checking package
 import sys
-import re
 
 ### In order for this code to run as designed there needs to be a column in the dataset
 # That is title FNAME which contains the text string needed to be entered for there
