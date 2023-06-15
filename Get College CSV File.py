@@ -15,7 +15,7 @@ import sys
 # "[First name]-[last name]-1" for a majority of players.
 #I created this column using Google Sheets and then loaded this data below
 
-draftdf = pd.read_csv('/Users/pauly/Desktop/Github/NBADraft/jarrett_batch.csv')
+draftdf = pd.read_csv('/Users/pauly/Desktop/Github/NBADraft/ingram_batch.csv')
 player_names = []
 for player in draftdf['FNAME']:
     name = ''
@@ -82,6 +82,6 @@ def scrape_college_data(names=[]):
 #Collecting data into dataframe then placing into a csv file
     df=pd.DataFrame(stats)
     print(df)
-    df.to_csv('college_statistics_kendall.csv')
+    df.to_csv('college_statistics_ingram.csv')
 
 scrape_college_data(player_names)
