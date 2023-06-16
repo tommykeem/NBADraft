@@ -15,7 +15,7 @@ import sys
 # "[First name]-[last name]-1" for a majority of players.
 #I created this column using Google Sheets and then loaded this data below
 
-draftdf = pd.read_csv('/Users/pauly/Desktop/Github/NBADraft/for_WS_40_3.csv')
+draftdf = pd.read_csv('/Users/pauly/Desktop/Github/NBADraft/for_WS_40.csv')
 player_names = []
 for player in draftdf['FNAME']:
     name = ''
@@ -102,7 +102,7 @@ def scrape_advanced_data(names=[]):
                 player = {}
                 player['Player']= (draftdf['Player'].loc[draftdf['FNAME'] == name[1]]).item()
                 player['College_Season'] = row.find('th', {'data-stat' : 'season'}).text
-                player['Offensive_Win_Shares'] = row.find('td', {'data-stat' : 'dws'}).text
+                player['Offensive_Win_Shares'] = row.find('td', {'data-stat' : 'ows'}).text
                 player['Defensive_Win_Shares'] = row.find('td', {'data-stat' : 'dws'}).text
                 player['Win_Shares'] = row.find('td', {'data-stat' : 'ws'}).text
                 player['Win_Shares_Per_40'] = row.find('td', {'data-stat' : 'ws_per_40'}).text
@@ -117,6 +117,6 @@ def scrape_advanced_data(names=[]):
 #Collecting data into dataframe then placing into a csv file
     df=pd.DataFrame(stats)
     print(df)
-    df.to_csv('advanced_college_statistics_3.csv')
+    df.to_csv('advanced_college_statistics_1.csv')
 
 scrape_advanced_data(player_names)
